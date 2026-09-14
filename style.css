@@ -1299,3 +1299,338 @@ section {
     }
 
 }
+
+/* =================================
+   TOP TECH JAVASCRIPT FEATURES
+   ================================= */
+
+
+/* MOBILE MENU BUTTON */
+
+.menu-toggle {
+    display: none;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+
+/* LOGO */
+
+.logo {
+    font-size: 25px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: #25d366;
+}
+
+
+/* HERO SMALL TEXT */
+
+.hero-small {
+    color: #25d366 !important;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 10px !important;
+}
+
+
+/* SECTION INTRO */
+
+.section-intro {
+    max-width: 650px;
+    margin: -15px auto 35px;
+    color: #666;
+}
+
+
+/* WHY GRID */
+
+.why-grid {
+
+    max-width: 1000px;
+
+    margin: 35px auto 0;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 20px;
+
+}
+
+
+.why-card {
+
+    background: #f4f7fb;
+
+    padding: 25px;
+
+    border-radius: 12px;
+
+    transition: 0.3s;
+
+}
+
+
+.why-card:hover {
+
+    transform: translateY(-6px);
+
+    box-shadow:
+        0 10px 25px rgba(0,0,0,0.10);
+
+}
+
+
+.why-card span {
+
+    font-size: 30px;
+
+    color: #25d366;
+
+}
+
+
+.why-card h3 {
+
+    margin: 10px 0;
+
+    color: #071a33;
+
+}
+
+
+.why-card p {
+
+    background: transparent;
+
+    padding: 0;
+
+    margin: 0;
+
+}
+
+
+/* QUOTE SECTION */
+
+.quote-section {
+
+    background: white;
+
+    padding: 70px 20px;
+
+    text-align: center;
+
+}
+
+
+.quote-section > p {
+
+    color: #666;
+
+    margin-bottom: 30px;
+
+}
+
+
+#quoteForm {
+
+    max-width: 650px;
+
+    margin: auto;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 15px;
+
+}
+
+
+#quoteForm input,
+
+#quoteForm select,
+
+#quoteForm textarea {
+
+    width: 100%;
+
+    padding: 15px;
+
+    border: 1px solid #d5dce5;
+
+    border-radius: 8px;
+
+    font-size: 16px;
+
+    font-family: inherit;
+
+    outline: none;
+
+}
+
+
+#quoteForm input:focus,
+
+#quoteForm select:focus,
+
+#quoteForm textarea:focus {
+
+    border-color: #25d366;
+
+    box-shadow:
+        0 0 0 3px rgba(37,211,102,0.12);
+
+}
+
+
+#quoteForm textarea {
+
+    resize: vertical;
+
+}
+
+
+#quoteForm button {
+
+    border: none;
+
+    padding: 15px 20px;
+
+    background: #25d366;
+
+    color: white;
+
+    border-radius: 8px;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+
+}
+
+
+#quoteForm button:hover {
+
+    background: #1ebc59;
+
+    transform: translateY(-2px);
+
+}
+
+
+/* SCROLL ANIMATION */
+
+.reveal {
+
+    opacity: 0;
+
+    transform: translateY(30px);
+
+    transition:
+        opacity 0.7s ease,
+        transform 0.7s ease;
+
+}
+
+
+.reveal.show {
+
+    opacity: 1;
+
+    transform: translateY(0);
+
+}
+
+
+/* FOOTER */
+
+footer h3 {
+
+    color: #25d366;
+
+    margin-bottom: 10px;
+
+}
+
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+
+    .navbar {
+
+        flex-direction: row;
+
+        justify-content: space-between;
+
+    }
+
+
+    .menu-toggle {
+
+        display: block;
+
+    }
+
+
+    .nav-links {
+
+        display: none;
+
+        width: 100%;
+
+        flex-direction: column;
+
+        gap: 15px;
+
+        padding: 20px 0;
+
+    }
+
+
+    .nav-links.active {
+
+        display: flex;
+
+    }
+
+
+    .navbar {
+
+        flex-wrap: wrap;
+
+    }
+
+
+    .why-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .why-card {
+
+        text-align: center;
+
+    }
+
+
+    .quote-section {
+
+        padding: 50px 15px;
+
+    }
+
+}
