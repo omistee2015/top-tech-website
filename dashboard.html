@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Top Tech Dashboard</title>
+
+    <link rel="stylesheet" href="dashboard.css">
+
+</head>
+
+<body>
+
+<header class="dashboard-header">
+
+    <h1>TOP TECH</h1>
+
+    <p>Business Management Dashboard</p>
+
+</header>
+
+
+<main class="dashboard">
+
+    <!-- STATISTICS -->
+
+    <section class="stats">
+
+        <div class="stat-card">
+            <h3>Customers</h3>
+            <p id="totalCustomers">0</p>
+        </div>
+
+        <div class="stat-card">
+            <h3>Revenue</h3>
+            <p id="totalRevenue">₦0</p>
+        </div>
+
+        <div class="stat-card">
+            <h3>Expenses</h3>
+            <p id="totalExpenses">₦0</p>
+        </div>
+
+        <div class="stat-card">
+            <h3>Profit</h3>
+            <p id="totalProfit">₦0</p>
+        </div>
+
+        <div class="stat-card">
+            <h3>Outstanding</h3>
+            <p id="totalBalance">₦0</p>
+        </div>
+
+    </section>
+
+
+    <!-- CUSTOMER FORM -->
+
+    <section class="panel">
+
+        <h2>Add Customer / Sale</h2>
+
+        <form id="customerForm">
+
+            <input
+                type="text"
+                id="customerName"
+                placeholder="Customer Name"
+                required
+            >
+
+            <input
+                type="tel"
+                id="customerPhone"
+                placeholder="Phone Number"
+                required
+            >
+
+            <select id="service" required>
+
+                <option value="">
+                    Select Service
+                </option>
+
+                <option value="CCTV">
+                    CCTV
+                </option>
+
+                <option value="Solar & Inverter">
+                    Solar & Inverter
+                </option>
+
+                <option value="Satellite TV">
+                    Satellite TV
+                </option>
+
+                <option value="Networking">
+                    Networking
+                </option>
+
+                <option value="Other">
+                    Other
+                </option>
+
+            </select>
+
+            <input
+                type="number"
+                id="quantity"
+                placeholder="Quantity"
+                min="1"
+                required
+            >
+
+            <input
+                type="number"
+                id="unitPrice"
+                placeholder="Unit Price"
+                min="0"
+                required
+            >
+
+            <input
+                type="number"
+                id="amountPaid"
+                placeholder="Amount Paid"
+                min="0"
+                required
+            >
+
+            <button type="submit">
+                Add Customer
+            </button>
+
+        </form>
+
+    </section>
+
+
+    <!-- EXPENSE -->
+
+    <section class="panel">
+
+        <h2>Add Expense</h2>
+
+        <form id="expenseForm">
+
+            <input
+                type="text"
+                id="expenseDescription"
+                placeholder="Expense Description"
+                required
+            >
+
+            <input
+                type="number"
+                id="expenseAmount"
+                placeholder="Expense Amount"
+                min="0"
+                required
+            >
+
+            <button type="submit">
+                Add Expense
+            </button>
+
+        </form>
+
+    </section>
+
+
+    <!-- SEARCH -->
+
+    <section class="panel">
+
+        <h2>Customer Records</h2>
+
+        <input
+            type="text"
+            id="searchCustomer"
+            placeholder="Search customer..."
+        >
+
+        <div id="customerRecords"></div>
+
+    </section>
+
+
+    <!-- EXPENSE RECORDS -->
+
+    <section class="panel">
+
+        <h2>Expense Records</h2>
+
+        <div id="expenseRecords"></div>
+
+    </section>
+
+</main>
+
+
+<script src="dashboard.js"></script>
+
+</body>
+
+</html>
