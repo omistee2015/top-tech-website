@@ -1,0 +1,258 @@
+* {
+    box-sizing: border-box;
+}
+
+
+body {
+
+    margin: 0;
+
+    font-family: Arial, sans-serif;
+
+    background: #f4f6f8;
+
+    color: #222;
+
+}
+
+
+.dashboard-header {
+
+    background: #071a33;
+
+    color: white;
+
+    padding: 30px 20px;
+
+    text-align: center;
+
+}
+
+
+.dashboard-header h1 {
+
+    margin: 0;
+
+    color: #25d366;
+
+}
+
+
+.dashboard-header p {
+
+    margin-bottom: 0;
+
+}
+
+
+.dashboard {
+
+    max-width: 1200px;
+
+    margin: auto;
+
+    padding: 30px 20px;
+
+}
+
+
+.stats {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(5, 1fr);
+
+    gap: 15px;
+
+    margin-bottom: 30px;
+
+}
+
+
+.stat-card {
+
+    background: white;
+
+    padding: 20px;
+
+    border-radius: 10px;
+
+    box-shadow:
+        0 3px 10px rgba(0,0,0,0.08);
+
+}
+
+
+.stat-card h3 {
+
+    margin-top: 0;
+
+    color: #555;
+
+    font-size: 15px;
+
+}
+
+
+.stat-card p {
+
+    font-size: 25px;
+
+    font-weight: bold;
+
+    color: #071a33;
+
+}
+
+
+.panel {
+
+    background: white;
+
+    padding: 25px;
+
+    margin-bottom: 25px;
+
+    border-radius: 10px;
+
+    box-shadow:
+        0 3px 10px rgba(0,0,0,0.08);
+
+}
+
+
+.panel h2 {
+
+    margin-top: 0;
+
+    color: #071a33;
+
+}
+
+
+form {
+
+    display: grid;
+
+    gap: 15px;
+
+}
+
+
+input,
+select {
+
+    width: 100%;
+
+    padding: 13px;
+
+    border: 1px solid #ddd;
+
+    border-radius: 6px;
+
+    font-size: 16px;
+
+}
+
+
+button {
+
+    padding: 13px;
+
+    background: #25d366;
+
+    color: white;
+
+    border: none;
+
+    border-radius: 6px;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+}
+
+
+button:hover {
+
+    background: #1db954;
+
+}
+
+
+#searchCustomer {
+
+    margin-bottom: 20px;
+
+}
+
+
+.customer-card,
+.expense-card {
+
+    border: 1px solid #ddd;
+
+    padding: 15px;
+
+    margin-bottom: 12px;
+
+    border-radius: 8px;
+
+}
+
+
+.customer-card h3,
+.expense-card h3 {
+
+    margin-top: 0;
+
+}
+
+
+.delete-button {
+
+    background: #dc3545;
+
+    margin-top: 10px;
+
+}
+
+
+.delete-button:hover {
+
+    background: #b02a37;
+
+}
+
+
+@media (max-width: 800px) {
+
+    .stats {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+    }
+
+}
+
+
+@media (max-width: 500px) {
+
+    .stats {
+
+        grid-template-columns: 1fr;
+
+    }
+
+    .dashboard {
+
+        padding: 15px;
+
+    }
+
+}
