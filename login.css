@@ -1,0 +1,108 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+
+    font-family: Arial, sans-serif;
+
+    background: #071a33;
+
+    min-height: 100vh;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+}
+
+.login-container {
+    width: 100%;
+
+    max-width: 430px;
+
+    padding: 20px;
+}
+
+.login-card {
+    background: white;
+
+    padding: 35px;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.login-card h1 {
+    text-align: center;
+
+    margin: 0;
+
+    color: #071a33;
+}
+
+.subtitle {
+    text-align: center;
+
+    color: #666;
+
+    margin-bottom: 30px;
+}
+
+label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    font-weight: bold;
+}
+
+input {
+    width: 100%;
+
+    padding: 13px;
+
+    margin-bottom: 18px;
+
+    border: 1px solid #ddd;
+
+    border-radius: 6px;
+
+    font-size: 16px;
+}
+
+button {
+    width: 100%;
+
+    padding: 14px;
+
+    border: none;
+
+    border-radius: 6px;
+
+    background: #25d366;
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+button:hover {
+    background: #1db954;
+}
+
+#message {
+    text-align: center;
+
+    margin-top: 20px;
+
+    font-weight: bold;
+}
