@@ -2,7 +2,7 @@
 // TOP TECH SUPABASE CONNECTION
 // ==========================================
 
-const SUPABASE_URL = "https://schtbejtrgxqpcddjdnv.supabase.co/rest/v1/";
+const SUPABASE_URL = "https://schtbejtrgxqpcddjdnv.supabase.co";
 
 const SUPABASE_KEY = "sb_publishable_GK3cX-URv0_MxlLK-Zd4ng_urUacyg7";
 
