@@ -1,18 +1,66 @@
 // ==========================================
-// TOP TECH SUPABASE CONNECTION
+// AUTHENTICATION
 // ==========================================
 
-const SUPABASE_URL = "https://schtbejtrgxqpcddjdnv.supabase.co";
+const SUPABASE_URL =
+    "https://schtbejtrgxqpcddjdnv.supabase.co";
 
-const SUPABASE_KEY = "sb_publishable_GK3cX-URv0_MxlLK-Zd4ng_urUacyg7";
+const SUPABASE_KEY =
+    "sb_publishable_GK3cX-URv0_MxlLK-Zd4ng_urUacyg7";
 
-const { createClient } = supabase;
 
-const db = createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-);
+const { createClient } =
+    supabase;
 
+
+const db =
+    createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+
+// ==========================================
+// CHECK LOGIN
+// ==========================================
+
+async function checkLogin() {
+
+    const {
+        data: {
+            session
+        }
+    } = await db.auth.getSession();
+
+
+    if (!session) {
+
+        window.location.href =
+            "login.html";
+
+        return false;
+    }
+
+
+    const authLoading =
+        document.getElementById(
+            "authLoading"
+        );
+
+
+    if (authLoading) {
+
+        authLoading.style.display =
+            "none";
+
+    }
+
+
+    return true;
+}
+
+
+checkLogin();
 
 // ==========================================
 // HTML ELEMENTS
