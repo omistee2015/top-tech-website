@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,211 +11,270 @@
 
     <title>Top Tech Dashboard</title>
 
+    <!-- Dashboard CSS -->
     <link rel="stylesheet" href="dashboard.css">
 
 </head>
 
+
 <body>
 
-<div id="authLoading" class="auth-loading">
-    Checking login...
-</div>
-    
-<header class="dashboard-header">
+    <!-- =========================
+         AUTHENTICATION LOADING
+    ========================== -->
 
-    <h1>TOP TECH</h1>
-
-    <p>Business Management Dashboard</p>
-
-    <button id="logoutButton">
-        Logout
-    </button>
-
-</header>
+    <div id="authLoading" class="auth-loading">
+        Checking login...
+    </div>
 
 
-<main class="dashboard">
+    <!-- =========================
+         DASHBOARD HEADER
+    ========================== -->
 
-    <!-- STATISTICS -->
+    <header class="dashboard-header">
 
-    <section class="stats">
-
-        <div class="stat-card">
-            <h3>Customers</h3>
-            <p id="totalCustomers">0</p>
+        <div>
+            <h1>TOP TECH</h1>
+            <p>Business Management Dashboard</p>
         </div>
 
-        <div class="stat-card">
-            <h3>Revenue</h3>
-            <p id="totalRevenue">₦0</p>
-        </div>
+        <button id="logoutButton" type="button">
+            Logout
+        </button>
 
-        <div class="stat-card">
-            <h3>Expenses</h3>
-            <p id="totalExpenses">₦0</p>
-        </div>
-
-        <div class="stat-card">
-            <h3>Profit</h3>
-            <p id="totalProfit">₦0</p>
-        </div>
-
-        <div class="stat-card">
-            <h3>Outstanding</h3>
-            <p id="totalBalance">₦0</p>
-        </div>
-
-    </section>
+    </header>
 
 
-    <!-- CUSTOMER FORM -->
+    <!-- =========================
+         MAIN DASHBOARD
+    ========================== -->
 
-    <section class="panel">
+    <main class="dashboard">
 
-        <h2>Add Customer / Sale</h2>
 
-        <form id="customerForm">
+        <!-- =========================
+             STATISTICS
+        ========================== -->
+
+        <section class="stats">
+
+            <div class="stat-card">
+                <h3>Customers</h3>
+                <p id="totalCustomers">0</p>
+            </div>
+
+
+            <div class="stat-card">
+                <h3>Revenue</h3>
+                <p id="totalRevenue">₦0</p>
+            </div>
+
+
+            <div class="stat-card">
+                <h3>Expenses</h3>
+                <p id="totalExpenses">₦0</p>
+            </div>
+
+
+            <div class="stat-card">
+                <h3>Profit</h3>
+                <p id="totalProfit">₦0</p>
+            </div>
+
+
+            <div class="stat-card">
+                <h3>Outstanding</h3>
+                <p id="totalBalance">₦0</p>
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             ADD CUSTOMER / SALE
+        ========================== -->
+
+        <section class="panel">
+
+            <h2>Add Customer / Sale</h2>
+
+            <form id="customerForm">
+
+                <input
+                    type="text"
+                    id="customerName"
+                    placeholder="Customer Name"
+                    required
+                >
+
+
+                <input
+                    type="tel"
+                    id="customerPhone"
+                    placeholder="Phone Number"
+                    required
+                >
+
+
+                <select id="service" required>
+
+                    <option value="">
+                        Select Service
+                    </option>
+
+                    <option value="CCTV">
+                        CCTV
+                    </option>
+
+                    <option value="Solar & Inverter">
+                        Solar & Inverter
+                    </option>
+
+                    <option value="Satellite TV">
+                        Satellite TV
+                    </option>
+
+                    <option value="Networking">
+                        Networking
+                    </option>
+
+                    <option value="Other">
+                        Other
+                    </option>
+
+                </select>
+
+
+                <input
+                    type="number"
+                    id="quantity"
+                    placeholder="Quantity"
+                    min="1"
+                    required
+                >
+
+
+                <input
+                    type="number"
+                    id="unitPrice"
+                    placeholder="Unit Price"
+                    min="0"
+                    required
+                >
+
+
+                <input
+                    type="number"
+                    id="amountPaid"
+                    placeholder="Amount Paid"
+                    min="0"
+                    required
+                >
+
+
+                <button type="submit">
+                    Add Customer
+                </button>
+
+            </form>
+
+        </section>
+
+
+
+        <!-- =========================
+             ADD EXPENSE
+        ========================== -->
+
+        <section class="panel">
+
+            <h2>Add Expense</h2>
+
+            <form id="expenseForm">
+
+                <input
+                    type="text"
+                    id="expenseDescription"
+                    placeholder="Expense Description"
+                    required
+                >
+
+
+                <input
+                    type="number"
+                    id="expenseAmount"
+                    placeholder="Expense Amount"
+                    min="0"
+                    required
+                >
+
+
+                <button type="submit">
+                    Add Expense
+                </button>
+
+            </form>
+
+        </section>
+
+
+
+        <!-- =========================
+             CUSTOMER RECORDS
+        ========================== -->
+
+        <section class="panel">
+
+            <h2>Customer Records</h2>
+
 
             <input
                 type="text"
-                id="customerName"
-                placeholder="Customer Name"
-                required
+                id="searchCustomer"
+                placeholder="Search customer..."
             >
 
-            <input
-                type="tel"
-                id="customerPhone"
-                placeholder="Phone Number"
-                required
-            >
 
-            <select id="service" required>
+            <div id="customerRecords"></div>
 
-                <option value="">
-                    Select Service
-                </option>
-
-                <option value="CCTV">
-                    CCTV
-                </option>
-
-                <option value="Solar & Inverter">
-                    Solar & Inverter
-                </option>
-
-                <option value="Satellite TV">
-                    Satellite TV
-                </option>
-
-                <option value="Networking">
-                    Networking
-                </option>
-
-                <option value="Other">
-                    Other
-                </option>
-
-            </select>
-
-            <input
-                type="number"
-                id="quantity"
-                placeholder="Quantity"
-                min="1"
-                required
-            >
-
-            <input
-                type="number"
-                id="unitPrice"
-                placeholder="Unit Price"
-                min="0"
-                required
-            >
-
-            <input
-                type="number"
-                id="amountPaid"
-                placeholder="Amount Paid"
-                min="0"
-                required
-            >
-
-            <button type="submit">
-                Add Customer
-            </button>
-
-        </form>
-
-    </section>
+        </section>
 
 
-    <!-- EXPENSE -->
 
-    <section class="panel">
+        <!-- =========================
+             EXPENSE RECORDS
+        ========================== -->
 
-        <h2>Add Expense</h2>
+        <section class="panel">
 
-        <form id="expenseForm">
-
-            <input
-                type="text"
-                id="expenseDescription"
-                placeholder="Expense Description"
-                required
-            >
-
-            <input
-                type="number"
-                id="expenseAmount"
-                placeholder="Expense Amount"
-                min="0"
-                required
-            >
-
-            <button type="submit">
-                Add Expense
-            </button>
-
-        </form>
-
-    </section>
+            <h2>Expense Records</h2>
 
 
-    <!-- SEARCH -->
+            <div id="expenseRecords"></div>
 
-    <section class="panel">
+        </section>
 
-        <h2>Customer Records</h2>
-
-        <input
-            type="text"
-            id="searchCustomer"
-            placeholder="Search customer..."
-        >
-
-        <div id="customerRecords"></div>
-
-    </section>
+    </main>
 
 
-    <!-- EXPENSE RECORDS -->
 
-    <section class="panel">
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
 
-        <h2>Expense Records</h2>
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-        <div id="expenseRecords"></div>
+    <!-- Authentication -->
+    <script src="auth.js"></script>
 
-    </section>
+    <!-- Dashboard -->
+    <script src="dashboard.js"></script>
 
-</main>
-
-<<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="auth.js"></script>
-<script src="dashboard.js"></script>
 
 </body>
 
 </html>
+```
