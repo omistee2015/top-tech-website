@@ -1,5 +1,6 @@
+```javascript
 // ==========================================
-// AUTHENTICATION
+// SUPABASE CONFIGURATION
 // ==========================================
 
 const SUPABASE_URL =
@@ -9,8 +10,7 @@ const SUPABASE_KEY =
     "sb_publishable_GK3cX-URv0_MxlLK-Zd4ng_urUacyg7";
 
 
-const { createClient } =
-    supabase;
+const { createClient } = supabase;
 
 
 const db =
@@ -19,48 +19,6 @@ const db =
         SUPABASE_KEY
     );
 
-
-// ==========================================
-// CHECK LOGIN
-// ==========================================
-
-async function checkLogin() {
-
-    const {
-        data: {
-            session
-        }
-    } = await db.auth.getSession();
-
-
-    if (!session) {
-
-        window.location.href =
-            "login.html";
-
-        return false;
-    }
-
-
-    const authLoading =
-        document.getElementById(
-            "authLoading"
-        );
-
-
-    if (authLoading) {
-
-        authLoading.style.display =
-            "none";
-
-    }
-
-
-    return true;
-}
-
-
-checkLogin();
 
 // ==========================================
 // HTML ELEMENTS
@@ -77,185 +35,322 @@ const searchCustomer =
 
 
 // ==========================================
+// CHECK LOGIN
+// ==========================================
+
+async function checkLogin() {
+
+    const {
+        data: {
+            session
+        }
+    } = await db.auth.getSession();
+
+
+    // If user is not logged in
+    if (!session) {
+
+        window.location.href =
+            "login.html";
+
+        return false;
+    }
+
+
+    // Hide authentication loading message
+    const authLoading =
+        document.getElementById("authLoading");
+
+
+    if (authLoading) {
+
+        authLoading.style.display =
+            "none";
+
+    }
+
+
+    return true;
+}
+
+
+// ==========================================
 // CUSTOMER FORM
 // ==========================================
 
-customerForm.addEventListener("submit", async function (event) {
+customerForm.addEventListener(
+    "submit",
+    async function (event) {
 
-    event.preventDefault();
-
-    const name =
-        document.getElementById("customerName").value.trim();
-
-    const phone =
-        document.getElementById("customerPhone").value.trim();
-
-    const service =
-        document.getElementById("service").value;
-
-    const quantity =
-        Number(document.getElementById("quantity").value);
-
-    const unitPrice =
-        Number(document.getElementById("unitPrice").value);
-
-    const amountPaid =
-        Number(document.getElementById("amountPaid").value);
+        event.preventDefault();
 
 
-    // VALIDATION
-
-    if (name === "") {
-        alert("Enter customer name.");
-        return;
-    }
-
-    if (phone === "") {
-        alert("Enter phone number.");
-        return;
-    }
-
-    if (service === "") {
-        alert("Select a service.");
-        return;
-    }
-
-    if (quantity <= 0) {
-        alert("Quantity must be greater than 0.");
-        return;
-    }
-
-    if (unitPrice < 0) {
-        alert("Price cannot be negative.");
-        return;
-    }
-
-    if (amountPaid < 0) {
-        alert("Payment cannot be negative.");
-        return;
-    }
+        const name =
+            document
+                .getElementById("customerName")
+                .value
+                .trim();
 
 
-    // CALCULATIONS
-
-    const total =
-        quantity * unitPrice;
-
-    const balance =
-        total - amountPaid;
+        const phone =
+            document
+                .getElementById("customerPhone")
+                .value
+                .trim();
 
 
-    if (amountPaid > total) {
-        alert("Amount paid cannot be greater than total.");
-        return;
-    }
+        const service =
+            document
+                .getElementById("service")
+                .value;
 
 
-    // SEND CUSTOMER TO SUPABASE
-
-    const { error } = await db
-        .from("customers")
-        .insert([
-            {
-                name: name,
-                phone: phone,
-                service: service,
-                quantity: quantity,
-                unit_price: unitPrice,
-                total: total,
-                amount_paid: amountPaid,
-                balance: balance
-            }
-        ]);
+        const quantity =
+            Number(
+                document
+                    .getElementById("quantity")
+                    .value
+            );
 
 
-    if (error) {
+        const unitPrice =
+            Number(
+                document
+                    .getElementById("unitPrice")
+                    .value
+            );
 
-        console.error(error);
+
+        const amountPaid =
+            Number(
+                document
+                    .getElementById("amountPaid")
+                    .value
+            );
+
+
+        // ==========================================
+        // VALIDATION
+        // ==========================================
+
+        if (name === "") {
+
+            alert("Enter customer name.");
+
+            return;
+        }
+
+
+        if (phone === "") {
+
+            alert("Enter phone number.");
+
+            return;
+        }
+
+
+        if (service === "") {
+
+            alert("Select a service.");
+
+            return;
+        }
+
+
+        if (quantity <= 0) {
+
+            alert(
+                "Quantity must be greater than 0."
+            );
+
+            return;
+        }
+
+
+        if (unitPrice < 0) {
+
+            alert(
+                "Price cannot be negative."
+            );
+
+            return;
+        }
+
+
+        if (amountPaid < 0) {
+
+            alert(
+                "Payment cannot be negative."
+            );
+
+            return;
+        }
+
+
+        // ==========================================
+        // CALCULATIONS
+        // ==========================================
+
+        const total =
+            quantity * unitPrice;
+
+
+        const balance =
+            total - amountPaid;
+
+
+        if (amountPaid > total) {
+
+            alert(
+                "Amount paid cannot be greater than total."
+            );
+
+            return;
+        }
+
+
+        // ==========================================
+        // SAVE CUSTOMER TO SUPABASE
+        // ==========================================
+
+        const { error } =
+            await db
+                .from("customers")
+                .insert([
+                    {
+                        name: name,
+                        phone: phone,
+                        service: service,
+                        quantity: quantity,
+                        unit_price: unitPrice,
+                        total: total,
+                        amount_paid: amountPaid,
+                        balance: balance
+                    }
+                ]);
+
+
+        if (error) {
+
+            console.error(error);
+
+            alert(
+                "Customer could not be saved.\n\n" +
+                error.message
+            );
+
+            return;
+        }
+
 
         alert(
-            "Customer could not be saved.\n\n" +
-            error.message
+            "Customer saved successfully!"
         );
 
-        return;
+
+        customerForm.reset();
+
+
+        await loadCustomers();
+
+        await updateDashboard();
+
     }
-
-
-    alert("Customer saved successfully!");
-
-    customerForm.reset();
-
-    loadCustomers();
-
-    updateDashboard();
-
-});
+);
 
 
 // ==========================================
 // ADD EXPENSE
 // ==========================================
 
-expenseForm.addEventListener("submit", async function (event) {
+expenseForm.addEventListener(
+    "submit",
+    async function (event) {
 
-    event.preventDefault();
-
-    const description =
-        document
-            .getElementById("expenseDescription")
-            .value
-            .trim();
-
-    const amount =
-        Number(
-            document.getElementById("expenseAmount").value
-        );
+        event.preventDefault();
 
 
-    if (description === "") {
-        alert("Enter expense description.");
-        return;
-    }
-
-    if (amount <= 0) {
-        alert("Enter a valid expense amount.");
-        return;
-    }
+        const description =
+            document
+                .getElementById("expenseDescription")
+                .value
+                .trim();
 
 
-    const { error } = await db
-        .from("expenses")
-        .insert([
-            {
-                description: description,
-                amount: amount
-            }
-        ]);
+        const amount =
+            Number(
+                document
+                    .getElementById("expenseAmount")
+                    .value
+            );
 
 
-    if (error) {
+        // ==========================================
+        // VALIDATION
+        // ==========================================
 
-        console.error(error);
+        if (description === "") {
+
+            alert(
+                "Enter expense description."
+            );
+
+            return;
+        }
+
+
+        if (amount <= 0) {
+
+            alert(
+                "Enter a valid expense amount."
+            );
+
+            return;
+        }
+
+
+        // ==========================================
+        // SAVE EXPENSE TO SUPABASE
+        // ==========================================
+
+        const { error } =
+            await db
+                .from("expenses")
+                .insert([
+                    {
+                        description: description,
+                        amount: amount
+                    }
+                ]);
+
+
+        if (error) {
+
+            console.error(error);
+
+            alert(
+                "Expense could not be saved.\n\n" +
+                error.message
+            );
+
+            return;
+        }
+
 
         alert(
-            "Expense could not be saved.\n\n" +
-            error.message
+            "Expense saved successfully!"
         );
 
-        return;
+
+        expenseForm.reset();
+
+
+        await loadExpenses();
+
+        await updateDashboard();
+
     }
-
-
-    alert("Expense saved successfully!");
-
-    expenseForm.reset();
-
-    loadExpenses();
-
-    updateDashboard();
-
-});
+);
 
 
 // ==========================================
@@ -264,19 +359,25 @@ expenseForm.addEventListener("submit", async function (event) {
 
 async function loadCustomers() {
 
-    const { data, error } = await db
-        .from("customers")
-        .select("*")
-        .order("created_at", {
-            ascending: false
-        });
+    const { data, error } =
+        await db
+            .from("customers")
+            .select("*")
+            .order(
+                "created_at",
+                {
+                    ascending: false
+                }
+            );
 
 
     if (error) {
 
         console.error(error);
 
-        document.getElementById("customerRecords").innerHTML =
+        document.getElementById(
+            "customerRecords"
+        ).innerHTML =
             "<p>Unable to load customers.</p>";
 
         return;
@@ -284,6 +385,7 @@ async function loadCustomers() {
 
 
     displayCustomers(data);
+
 }
 
 
@@ -294,12 +396,18 @@ async function loadCustomers() {
 function displayCustomers(customers) {
 
     const container =
-        document.getElementById("customerRecords");
+        document.getElementById(
+            "customerRecords"
+        );
+
 
     container.innerHTML = "";
 
 
-    if (!customers || customers.length === 0) {
+    if (
+        !customers ||
+        customers.length === 0
+    ) {
 
         container.innerHTML =
             "<p>No customer records found.</p>";
@@ -308,70 +416,86 @@ function displayCustomers(customers) {
     }
 
 
-    customers.forEach(function (customer) {
+    customers.forEach(
+        function (customer) {
 
-        const card =
-            document.createElement("div");
-
-        card.className =
-            "customer-card";
+            const card =
+                document.createElement("div");
 
 
-        card.innerHTML = `
+            card.className =
+                "customer-card";
 
-            <h3>${customer.name}</h3>
 
-            <p>
-                <strong>Phone:</strong>
-                ${customer.phone}
-            </p>
+            card.innerHTML = `
 
-            <p>
-                <strong>Service:</strong>
-                ${customer.service}
-            </p>
+                <h3>
+                    ${customer.name}
+                </h3>
 
-            <p>
-                <strong>Quantity:</strong>
-                ${customer.quantity}
-            </p>
+                <p>
+                    <strong>Phone:</strong>
+                    ${customer.phone}
+                </p>
 
-            <p>
-                <strong>Unit Price:</strong>
-                ₦${Number(customer.unit_price).toLocaleString()}
-            </p>
+                <p>
+                    <strong>Service:</strong>
+                    ${customer.service}
+                </p>
 
-            <p>
-                <strong>Total:</strong>
-                ₦${Number(customer.total).toLocaleString()}
-            </p>
+                <p>
+                    <strong>Quantity:</strong>
+                    ${customer.quantity}
+                </p>
 
-            <p>
-                <strong>Paid:</strong>
-                ₦${Number(customer.amount_paid).toLocaleString()}
-            </p>
+                <p>
+                    <strong>Unit Price:</strong>
+                    ₦${Number(
+                        customer.unit_price
+                    ).toLocaleString()}
+                </p>
 
-            <p>
-                <strong>Balance:</strong>
-                ₦${Number(customer.balance).toLocaleString()}
-            </p>
+                <p>
+                    <strong>Total:</strong>
+                    ₦${Number(
+                        customer.total
+                    ).toLocaleString()}
+                </p>
 
-            <p>
-                <strong>Date:</strong>
-                ${new Date(customer.created_at).toLocaleDateString()}
-            </p>
+                <p>
+                    <strong>Paid:</strong>
+                    ₦${Number(
+                        customer.amount_paid
+                    ).toLocaleString()}
+                </p>
 
-            <button
-                class="delete-button"
-                onclick="deleteCustomer(${customer.id})">
-                Delete
-            </button>
+                <p>
+                    <strong>Balance:</strong>
+                    ₦${Number(
+                        customer.balance
+                    ).toLocaleString()}
+                </p>
 
-        `;
+                <p>
+                    <strong>Date:</strong>
+                    ${new Date(
+                        customer.created_at
+                    ).toLocaleDateString()}
+                </p>
 
-        container.appendChild(card);
+                <button
+                    class="delete-button"
+                    onclick="deleteCustomer(${customer.id})">
+                    Delete
+                </button>
 
-    });
+            `;
+
+
+            container.appendChild(card);
+
+        }
+    );
 
 }
 
@@ -383,17 +507,22 @@ function displayCustomers(customers) {
 async function deleteCustomer(id) {
 
     const confirmDelete =
-        confirm("Delete this customer record?");
+        confirm(
+            "Delete this customer record?"
+        );
+
 
     if (!confirmDelete) {
+
         return;
     }
 
 
-    const { error } = await db
-        .from("customers")
-        .delete()
-        .eq("id", id);
+    const { error } =
+        await db
+            .from("customers")
+            .delete()
+            .eq("id", id);
 
 
     if (error) {
@@ -409,11 +538,14 @@ async function deleteCustomer(id) {
     }
 
 
-    alert("Customer deleted.");
+    alert(
+        "Customer deleted."
+    );
 
-    loadCustomers();
 
-    updateDashboard();
+    await loadCustomers();
+
+    await updateDashboard();
 
 }
 
@@ -424,19 +556,25 @@ async function deleteCustomer(id) {
 
 async function loadExpenses() {
 
-    const { data, error } = await db
-        .from("expenses")
-        .select("*")
-        .order("created_at", {
-            ascending: false
-        });
+    const { data, error } =
+        await db
+            .from("expenses")
+            .select("*")
+            .order(
+                "created_at",
+                {
+                    ascending: false
+                }
+            );
 
 
     if (error) {
 
         console.error(error);
 
-        document.getElementById("expenseRecords").innerHTML =
+        document.getElementById(
+            "expenseRecords"
+        ).innerHTML =
             "<p>Unable to load expenses.</p>";
 
         return;
@@ -444,6 +582,7 @@ async function loadExpenses() {
 
 
     displayExpenses(data);
+
 }
 
 
@@ -454,12 +593,18 @@ async function loadExpenses() {
 function displayExpenses(expenses) {
 
     const container =
-        document.getElementById("expenseRecords");
+        document.getElementById(
+            "expenseRecords"
+        );
+
 
     container.innerHTML = "";
 
 
-    if (!expenses || expenses.length === 0) {
+    if (
+        !expenses ||
+        expenses.length === 0
+    ) {
 
         container.innerHTML =
             "<p>No expense records found.</p>";
@@ -468,40 +613,50 @@ function displayExpenses(expenses) {
     }
 
 
-    expenses.forEach(function (expense) {
+    expenses.forEach(
+        function (expense) {
 
-        const card =
-            document.createElement("div");
-
-        card.className =
-            "expense-card";
+            const card =
+                document.createElement("div");
 
 
-        card.innerHTML = `
+            card.className =
+                "expense-card";
 
-            <h3>${expense.description}</h3>
 
-            <p>
-                <strong>Amount:</strong>
-                ₦${Number(expense.amount).toLocaleString()}
-            </p>
+            card.innerHTML = `
 
-            <p>
-                <strong>Date:</strong>
-                ${new Date(expense.created_at).toLocaleDateString()}
-            </p>
+                <h3>
+                    ${expense.description}
+                </h3>
 
-            <button
-                class="delete-button"
-                onclick="deleteExpense(${expense.id})">
-                Delete
-            </button>
+                <p>
+                    <strong>Amount:</strong>
+                    ₦${Number(
+                        expense.amount
+                    ).toLocaleString()}
+                </p>
 
-        `;
+                <p>
+                    <strong>Date:</strong>
+                    ${new Date(
+                        expense.created_at
+                    ).toLocaleDateString()}
+                </p>
 
-        container.appendChild(card);
+                <button
+                    class="delete-button"
+                    onclick="deleteExpense(${expense.id})">
+                    Delete
+                </button>
 
-    });
+            `;
+
+
+            container.appendChild(card);
+
+        }
+    );
 
 }
 
@@ -513,17 +668,22 @@ function displayExpenses(expenses) {
 async function deleteExpense(id) {
 
     const confirmDelete =
-        confirm("Delete this expense?");
+        confirm(
+            "Delete this expense?"
+        );
+
 
     if (!confirmDelete) {
+
         return;
     }
 
 
-    const { error } = await db
-        .from("expenses")
-        .delete()
-        .eq("id", id);
+    const { error } =
+        await db
+            .from("expenses")
+            .delete()
+            .eq("id", id);
 
 
     if (error) {
@@ -539,11 +699,14 @@ async function deleteExpense(id) {
     }
 
 
-    alert("Expense deleted.");
+    alert(
+        "Expense deleted."
+    );
 
-    loadExpenses();
 
-    updateDashboard();
+    await loadExpenses();
+
+    await updateDashboard();
 
 }
 
@@ -554,21 +717,39 @@ async function deleteExpense(id) {
 
 async function updateDashboard() {
 
-    const { data: customers, error: customerError } =
+    // ==========================================
+    // GET CUSTOMERS
+    // ==========================================
+
+    const {
+        data: customers,
+        error: customerError
+    } =
         await db
             .from("customers")
-            .select("total, amount_paid, balance");
+            .select(
+                "total, amount_paid, balance"
+            );
 
 
     if (customerError) {
 
-        console.error(customerError);
+        console.error(
+            customerError
+        );
 
         return;
     }
 
 
-    const { data: expenses, error: expenseError } =
+    // ==========================================
+    // GET EXPENSES
+    // ==========================================
+
+    const {
+        data: expenses,
+        error: expenseError
+    } =
         await db
             .from("expenses")
             .select("amount");
@@ -576,56 +757,87 @@ async function updateDashboard() {
 
     if (expenseError) {
 
-        console.error(expenseError);
+        console.error(
+            expenseError
+        );
 
         return;
     }
 
 
+    // ==========================================
     // TOTAL CUSTOMERS
+    // ==========================================
 
     const totalCustomers =
         customers.length;
 
 
+    // ==========================================
     // TOTAL REVENUE
+    // ==========================================
 
     const revenue =
-        customers.reduce(function (sum, customer) {
+        customers.reduce(
+            function (sum, customer) {
 
-            return sum +
-                Number(customer.total);
+                return sum +
+                    Number(
+                        customer.total
+                    );
 
-        }, 0);
+            },
+            0
+        );
 
 
+    // ==========================================
     // TOTAL EXPENSES
+    // ==========================================
 
     const totalExpenses =
-        expenses.reduce(function (sum, expense) {
+        expenses.reduce(
+            function (sum, expense) {
 
-            return sum +
-                Number(expense.amount);
+                return sum +
+                    Number(
+                        expense.amount
+                    );
 
-        }, 0);
+            },
+            0
+        );
 
 
+    // ==========================================
     // PROFIT
+    // ==========================================
 
     const profit =
         revenue - totalExpenses;
 
 
+    // ==========================================
     // OUTSTANDING BALANCE
+    // ==========================================
 
     const balance =
-        customers.reduce(function (sum, customer) {
+        customers.reduce(
+            function (sum, customer) {
 
-            return sum +
-                Number(customer.balance);
+                return sum +
+                    Number(
+                        customer.balance
+                    );
 
-        }, 0);
+            },
+            0
+        );
 
+
+    // ==========================================
+    // UPDATE HTML
+    // ==========================================
 
     document.getElementById(
         "totalCustomers"
@@ -636,25 +848,29 @@ async function updateDashboard() {
     document.getElementById(
         "totalRevenue"
     ).textContent =
-        "₦" + revenue.toLocaleString();
+        "₦" +
+        revenue.toLocaleString();
 
 
     document.getElementById(
         "totalExpenses"
     ).textContent =
-        "₦" + totalExpenses.toLocaleString();
+        "₦" +
+        totalExpenses.toLocaleString();
 
 
     document.getElementById(
         "totalProfit"
     ).textContent =
-        "₦" + profit.toLocaleString();
+        "₦" +
+        profit.toLocaleString();
 
 
     document.getElementById(
         "totalBalance"
     ).textContent =
-        "₦" + balance.toLocaleString();
+        "₦" +
+        balance.toLocaleString();
 
 }
 
@@ -671,13 +887,18 @@ searchCustomer.addEventListener(
             searchCustomer.value.trim();
 
 
-        const { data, error } =
+        const {
+            data,
+            error
+        } =
             await db
                 .from("customers")
                 .select("*")
                 .ilike(
                     "name",
-                    "%" + searchTerm + "%"
+                    "%" +
+                    searchTerm +
+                    "%"
                 )
                 .order(
                     "created_at",
@@ -705,8 +926,30 @@ searchCustomer.addEventListener(
 // START APPLICATION
 // ==========================================
 
-loadCustomers();
+async function startDashboard() {
 
-loadExpenses();
+    const loggedIn =
+        await checkLogin();
 
-updateDashboard();
+
+    if (!loggedIn) {
+
+        return;
+    }
+
+
+    await loadCustomers();
+
+    await loadExpenses();
+
+    await updateDashboard();
+
+}
+
+
+// ==========================================
+// RUN DASHBOARD
+// ==========================================
+
+startDashboard();
+```
